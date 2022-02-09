@@ -1,0 +1,33 @@
+{
+	"name": "Teco",
+	"version": "0.0.0",
+	"private": true,
+	"license": "Apache-2.0",
+	"author": "Facundo Aquino",
+	"repository": "googleapis/nodejs-speech",
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"start": "nodemon ./bin/www",
+		"sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config"
+	},
+	"dependencies": {
+		"@google-cloud/vision": "^2.4.2",
+		"axios": "^0.25.0",
+		"chalk": "^5.0.0",
+		"colors": "^1.4.0",
+		"command-line-args": "^5.1.1",
+		"dotenv": "^16.0.0",
+		"http-errors": "~1.6.3",
+		"moment": "^2.15.1",
+		"morgan": "~1.9.1",
+		"node-image-downloader": "^1.0.7",
+		"node-tesseract-ocr": "^2.2.1",
+		"ocr-space-api-wrapper": "^2.1.0",
+		"request": "^2.88.0",
+		"tesseract.js": "^2.1.5",
+		"xlsx": "^0.14.5",
+		"yargs": "^13.0.0"
+	}
+}

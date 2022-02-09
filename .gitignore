@@ -1,0 +1,7 @@
+/node_modules
+/images/*
+/images2/*
+/bases/*
+/keys/*
+.env
+/downloads/*
