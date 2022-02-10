@@ -28,7 +28,7 @@ const photosNoDoc = (photos = []) => {
 					})
 				}
 				counter++
-				data[j] = { ...data[j], filename: str }
+				data[j].filename = str
 			}
 		}
 	}

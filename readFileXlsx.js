@@ -22,8 +22,8 @@ const readBook = (path) => {
 	// 	if (i < 500) console.log(f)
 	// })
 
-	const dataToJson = JSON.stringify(dataExel)
-	fs.writeFileSync('jsonsTest/pendDocs.json', dataToJson)
+	// const dataToJson = JSON.stringify(dataExel)
+	// fs.writeFileSync('jsonsTest/pendDocs.json', dataToJson)
 
 	// console.log(dataExel)
 	return dataExel

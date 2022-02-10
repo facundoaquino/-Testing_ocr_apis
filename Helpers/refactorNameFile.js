@@ -9,4 +9,11 @@ const refactorNameFile = (file = '') => {
 	return str
 }
 
-module.exports = { refactorNameFile }
+const trimExtension = (file = '') => {
+	let str = file
+	const strSplited = str.split('.')
+
+	return strSplited.slice(0, strSplited.length - 1).join('')
+}
+
+module.exports = { refactorNameFile, trimExtension }
