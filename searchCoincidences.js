@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const fs = require('fs')
+const { trimExtension } = require('./Helpers/refactorNameFile')
 
 const searchCoincidences = (dataExel = []) => {
 	console.log(dataExel)
@@ -15,9 +16,9 @@ const searchCoincidences = (dataExel = []) => {
 		for (let j = 0; j < data.length; j++) {
 			const file = data[j]
 			if (file.includes(element.linea) && !file.includes('-D-')) {
-				console.log({ linea: element.dni, file })
-
-				const strfileSplited = file.split('x')
+				// console.log({ linea: element.dni, file })
+				const refactored = trimExtension(file)
+				const strfileSplited = refactored.split('x')
 
 				// console.log(strfileSplited)
 				let str = strfileSplited[0] + '-D-' + element.dni
@@ -28,6 +29,11 @@ const searchCoincidences = (dataExel = []) => {
 						}
 					})
 				}
+				fs.rename(
+					process.env.PATH_TO_DOWNLOAD + '/' + file,
+					process.env.PATH_TO_DOWNLOAD + '/' + str + '.jpeg',
+					() => {}
+				)
 				counter++
 				data[j] = str
 			}

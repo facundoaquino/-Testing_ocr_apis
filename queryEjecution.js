@@ -19,7 +19,7 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 	// console.log(data.data)
 	let total = 0
 	data.data.forEach((d) => (total += d.files.length))
-	console.log('Total de arhicovs : ', total)
+	console.log('Total de archivos : ', total)
 	return data
 }
 
