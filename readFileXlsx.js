@@ -1,16 +1,31 @@
 const XLSX = require('xlsx')
-
+const fs = require('fs')
 const readBook = (path) => {
 	const workbook = XLSX.readFile(path)
 	const workbookSheets = workbook.SheetNames
 	console.log(workbookSheets)
 
 	const sheet = workbookSheets[0]
-	const dataExel = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]).map((e) => ({
-		linea: e['LineNumber'],
-		dni: e['Nombre del contacto: DocumentNumber'],
-	}))
+	console.log(sheet)
+	// const dataExel = XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { header: 'LineNumber' })
+	const dataExel = XLSX.utils
+		.sheet_to_json(workbook.Sheets[sheet])
+		.filter((f) => f['Estado'] == 'Pendiente de envío de documentación')
+		.map((e) => ({
+			linea: e['Pin Line'],
+			dni: e['Nombre del contacto: DocumentNumber'],
+			estado: e['Estado'],
+		}))
 
+	console.log('Pendientes de documentacion ', dataExel.length)
+	// dataExel.forEach((f, i) => {
+	// 	if (i < 500) console.log(f)
+	// })
+
+	const dataToJson = JSON.stringify(dataExel)
+	fs.writeFileSync('jsonsTest/pendDocs.json', dataToJson)
+
+	// console.log(dataExel)
 	return dataExel
 }
 

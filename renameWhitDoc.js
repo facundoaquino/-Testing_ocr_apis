@@ -1,11 +1,12 @@
 require('dotenv').config()
 const fs = require('fs')
+const { readBook } = require('./readFileXlsx')
 
 const pathToRelocated = process.env.PATH_FILESWHITDOC
 const pathActual = process.env.PATH_TO_DOWNLOAD
 // console.log(pathToRelocated)
-const renameWhitDoc = async () => {
-	const files = await fs.readdirSync(pathActual)
+const renameWhitDoc = () => {
+	const files = fs.readdirSync(pathActual)
 	console.log('archivos en carpeta: ', files.length)
 	const filesWhitDoc = files.filter((file) => file.includes('-D-'))
 	console.log('archivos con DNI incluido ', filesWhitDoc.length)
@@ -19,6 +20,12 @@ const renameWhitDoc = async () => {
 }
 
 renameWhitDoc()
+//leer exel .xlsx
+readBook('./bases/gestionesFan_9_2.xlsx')
+
+const parseData = fs.readFileSync('./jsonsTest/pendDocs.json')
+console.log(JSON.parse(parseData))
+console.log('largo ', JSON.parse(parseData).length)
 
 module.exports = {
 	renameWhitDoc,
