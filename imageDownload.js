@@ -35,10 +35,6 @@ const getData = async () => {
 		element.filename = splited
 	})
 
-	// const photosRefactorized = {
-	// 	...photosDocFilter,
-	// 	withouDoc: photosNoDoc(photosDocFilter.withouDoc),
-	// }
 	// console.log(photosRefactorized.withouDoc)
 	// console.log(photosRefactorized.whitDoc.length + photosRefactorized.withouDoc.length)
 	if (!argv.h) {
