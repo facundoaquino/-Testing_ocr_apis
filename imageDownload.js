@@ -35,16 +35,6 @@ const getData = async () => {
 		element.filename = splited
 	})
 
-	// const photosDocFilter = photosRename.reduce(
-	// 	(acc, el) => {
-	// 		el.filename.includes('-D-') ? acc.whitDoc.push(el) : acc.withouDoc.push(el)
-	// 		return acc
-	// 	},
-	// 	{ whitDoc: [], withouDoc: [] }
-	// )
-
-	// // console.log(photosDocFilter.withouDoc)
-
 	// const photosRefactorized = {
 	// 	...photosDocFilter,
 	// 	withouDoc: photosNoDoc(photosDocFilter.withouDoc),
