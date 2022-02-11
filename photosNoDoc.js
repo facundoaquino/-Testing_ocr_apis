@@ -35,7 +35,7 @@ const photosNoDoc = (photos = []) => {
 	// console.log(indexesNot)
 	console.log(`Documento agregado en ${counter}  fotos`)
 	// indexesNot.forEach((p) => data.push(photos[p]))
-	fs.writeFileSync('./test.json', JSON.stringify(data, null, 5))
+	// fs.writeFileSync('./test.json', JSON.stringify(data, null, 5))
 	return data
 }
 
