@@ -36,7 +36,7 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 		body.to = `${day} 23:59:59`
 	}
 	console.log(
-		colors.bgBlue.black(
+		colors.bgCyan.black(
 			`Descargando del dia ${day} de ${timeFrom ? timeFrom : '00:00'} hs  a ${
 				timeTo ? timeTo : '23:59'
 			}hs`
@@ -49,7 +49,7 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 		},
 	})
 	// console.log(data.data)
-	console.log(data.data)
+
 	let photosRename = []
 
 	photosRename = data.data.map((photo) => ({
@@ -60,13 +60,16 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 			.join(''),
 	}))
 
-	ImageDownloader({
+	// DESCARGA DE IMAGENES CON LIBRERIA node-image-downloader
+
+	await ImageDownloader({
 		// imgs: [...photosRefactorized.whitDoc, ...photosRefactorized.withouDoc],
 		// imgs: [...photosDocFilter.whitDoc, ...photosDocFilter.withouDoc],
 		imgs: [...photosRename],
-		dest: './images', //destination folder
+		dest: '//Apac-fs1/GRUPOS/PRIVADO/AV2/DescargaMasivaFacu/wasapcorpo', //destination folder
 	})
 
+	console.log(colors.magenta('Archivos descargados : ', data.data.length))
 	return data.data
 }
 
