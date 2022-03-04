@@ -1,6 +1,7 @@
 const colors = require('colors')
 require('dotenv').config()
 const ImageDownloader = require('node-image-downloader/src/image-downloader')
+const { singleDownload } = require('./singleDownloadUrl')
 var argv = require('yargs/yargs')(process.argv.slice(2)).argv
 
 const axios = require('axios').default
@@ -50,24 +51,28 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 	})
 	// console.log(data.data)
 
-	let photosRename = []
+	if (timeFrom === '') {
+		//PARA DESCARGAR DIA COMPLETO DESCARGA DE A UNA (MAS LENTO)
+		await singleDownload(data.data)
+	} else {
+		let photosRename = []
 
-	photosRename = data.data.map((photo) => ({
-		uri: photo.url,
-		filename: photo.name
-			.split('.')
-			.slice(0, photo.name.split('.').length - 1)
-			.join(''),
-	}))
+		photosRename = data.data.map((photo) => ({
+			uri: photo.url,
+			filename: photo.name
+				.split('.')
+				.slice(0, photo.name.split('.').length - 1)
+				.join(''),
+		}))
+		// DESCARGA DE IMAGENES CON LIBRERIA node-image-downloader
 
-	// DESCARGA DE IMAGENES CON LIBRERIA node-image-downloader
-
-	await ImageDownloader({
-		// imgs: [...photosRefactorized.whitDoc, ...photosRefactorized.withouDoc],
-		// imgs: [...photosDocFilter.whitDoc, ...photosDocFilter.withouDoc],
-		imgs: [...photosRename],
-		dest: '//Apac-fs1/GRUPOS/PRIVADO/AV2/DescargaMasivaFacu/wasapcorpo', //destination folder
-	})
+		await ImageDownloader({
+			// imgs: [...photosRefactorized.whitDoc, ...photosRefactorized.withouDoc],
+			// imgs: [...photosDocFilter.whitDoc, ...photosDocFilter.withouDoc],
+			imgs: [...photosRename],
+			dest: './images', //destination folder
+		})
+	}
 
 	console.log(colors.magenta('Archivos descargados : ', data.data.length))
 	return data.data

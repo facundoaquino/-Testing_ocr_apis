@@ -1,4 +1,5 @@
 const colors = require('colors')
+require('dotenv').config()
 
 const axios = require('axios').default
 
