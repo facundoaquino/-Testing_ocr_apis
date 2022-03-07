@@ -1,7 +1,7 @@
 const colors = require('colors')
 require('dotenv').config()
 const ImageDownloader = require('node-image-downloader/src/image-downloader')
-const { singleDownload } = require('./singleDownloadUrl')
+const { singleDownload, singleDownload2 } = require('./singleDownloadUrl')
 var argv = require('yargs/yargs')(process.argv.slice(2)).argv
 
 const axios = require('axios').default
@@ -53,7 +53,7 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 
 	if (timeFrom === '') {
 		//PARA DESCARGAR DIA COMPLETO DESCARGA DE A UNA (MAS LENTO)
-		await singleDownload(data.data)
+		await singleDownload2(data.data)
 	} else {
 		let photosRename = []
 
