@@ -3,22 +3,22 @@
 
 const fs = require('fs')
 const Axios = require('axios')
-
 const client = require('https')
+const request = require('request')
 
-function downloadImage2(url, filepath) {
+/*---------------------- ********************************** ---------------------*/
+
+async function downloadImage(url, filepath) {
+	const response = await Axios({
+		url,
+		method: 'GET',
+		responseType: 'stream',
+	})
 	return new Promise((resolve, reject) => {
-		client.get(url, (res) => {
-			if (res.statusCode === 200) {
-				res.pipe(fs.createWriteStream(filepath))
-					.on('error', reject)
-					.once('close', () => resolve(filepath))
-			} else {
-				// Consume response data to free up memory
-				res.resume()
-				reject(new Error(`Request Failed With a Status Code: ${res.statusCode}`))
-			}
-		})
+		response.data
+			.pipe(fs.createWriteStream(filepath))
+			.on('error', reject)
+			.once('close', () => resolve(filepath))
 	})
 }
 
@@ -36,6 +36,23 @@ const singleDownload = async (dataArr) => {
 		await downloadImage(url, `./downloads/${name}`)
 	}
 }
+/*---------------------- ********************************** ---------------------*/
+
+function downloadImage2(url, filepath) {
+	return new Promise((resolve, reject) => {
+		client.get(url, (res) => {
+			if (res.statusCode === 200) {
+				res.pipe(fs.createWriteStream(filepath))
+					.on('error', reject)
+					.once('close', () => resolve(filepath))
+			} else {
+				// Consume response data to free up memory
+				res.resume()
+				reject(new Error(`Request Failed With a Status Code: ${res.statusCode}`))
+			}
+		})
+	})
+}
 const singleDownload2 = async (dataArr) => {
 	// const data = await queryEjecution({ day: '2022-03-02', timeFrom: '07', timeTo: '08' })
 	// const data = await queryEjecution({ day: '2022-03-02', timeFrom: '', timeTo: '' })
@@ -51,26 +68,46 @@ const singleDownload2 = async (dataArr) => {
 	}
 }
 
-async function downloadImage(url, filepath) {
-	const response = await Axios({
-		url,
-		method: 'GET',
-		responseType: 'stream',
-	})
+// downloadImage2(
+// 	'https://storage.googleapis.com/apex-telecom-whatsapp-prod-files/a8657f41-4be3-4c25-a685-abf4d31d2477.png',
+// 	'./downloads/image.jpg'
+// )
+
+/*---------------------- ********************************** ---------------------*/
+// codigo del script anterior para bajar por url
+
+var download = function (uri, filename) {
 	return new Promise((resolve, reject) => {
-		response.data
-			.pipe(fs.createWriteStream(filepath))
-			.on('error', reject)
-			.once('close', () => resolve(filepath))
+		request.head(uri, function (err, res, body) {
+			// console.log({ uri })
+			try {
+				request(uri)
+					.pipe(fs.createWriteStream(filename))
+					.on('close', function () {
+						resolve(filename)
+					})
+			} catch (e) {
+				console.log(e)
+			}
+		})
 	})
 }
 
-downloadImage2(
-	'https://storage.googleapis.com/apex-telecom-whatsapp-prod-files/a8657f41-4be3-4c25-a685-abf4d31d2477.png',
-	'./downloads/image.jpg'
-)
+const singleDownload3 = async (dataArr) => {
+	for (let i = 0; i < dataArr.length; i++) {
+		const { url, name } = dataArr[i]
+		await download(url, `./downloads/${name}`)
+		console.log(i + 1, ' Archivos descargados...')
+	}
+}
+
+// download(
+// 	'https://storage.googleapis.com/apex-telecom-whatsapp-prod-files/a8657f41-4be3-4c25-a685-abf4d31d2477.png',
+// 	'./downloads/image.jpg'
+// )
 
 module.exports = {
 	singleDownload,
 	singleDownload2,
+	singleDownload3,
 }
