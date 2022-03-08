@@ -54,7 +54,7 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 	if (timeFrom === '') {
 		//PARA DESCARGAR DIA COMPLETO DESCARGA DE A UNA (MAS LENTO)
 		// console.log(data.data)
-		await singleDownload3(data.data)
+		await singleDownload(data.data)
 	} else {
 		let photosRename = []
 

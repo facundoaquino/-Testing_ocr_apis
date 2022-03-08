@@ -13,6 +13,7 @@ async function downloadImage(url, filepath) {
 		url,
 		method: 'GET',
 		responseType: 'stream',
+		timeout: 5000,
 	})
 	return new Promise((resolve, reject) => {
 		response.data
@@ -33,7 +34,7 @@ const singleDownload = async (dataArr) => {
 	for (let i = 0; i < dataArr.length; i++) {
 		const { url, name } = dataArr[i]
 		//sin await , el proceso se rompe por demasiados archivos abiertos con await va lento aprox 1s por archivo pero cumple
-		await downloadImage(url, `./downloads/${name}`)
+		downloadImage(url, `./downloads/${name}`)
 	}
 }
 /*---------------------- ********************************** ---------------------*/
