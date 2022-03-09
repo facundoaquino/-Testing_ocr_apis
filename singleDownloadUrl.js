@@ -5,6 +5,7 @@ const fs = require('fs')
 const Axios = require('axios')
 const client = require('https')
 const request = require('request')
+const https = require('https')
 
 /*---------------------- ********************************** ---------------------*/
 
@@ -102,6 +103,30 @@ const singleDownload3 = async (dataArr) => {
 	}
 }
 
+/*---------------------- ********************************** ---------------------*/
+const downloadWhitHttp = (url, filename, position) => {
+	return new Promise((resolve, reject) => {
+		https.get(url, function (res) {
+			const fileStream = fs.createWriteStream(filename)
+			res.pipe(fileStream)
+
+			fileStream.on('finish', function () {
+				fileStream.close()
+				console.log(`Imagen ${position} descargada...`)
+
+				resolve(filename)
+			})
+		})
+	})
+}
+
+const singleDownload4 = async (dataArr) => {
+	for (let i = 0; i < dataArr.length; i++) {
+		const { url, name } = dataArr[i]
+		await downloadWhitHttp(url, `./downloads/${name}`, i + 1)
+	}
+}
+
 // download(
 // 	'https://storage.googleapis.com/apex-telecom-whatsapp-prod-files/a8657f41-4be3-4c25-a685-abf4d31d2477.png',
 // 	'./downloads/image.jpg'
@@ -111,4 +136,5 @@ module.exports = {
 	singleDownload,
 	singleDownload2,
 	singleDownload3,
+	singleDownload4,
 }
