@@ -1,3 +1,6 @@
+// DESCARGA CON ENDPOINT VIEJO DE APEX
+// http://platform.cognitivesa.com/#/download-files
+
 require('dotenv').config()
 const imageDownloader = require('node-image-downloader')
 

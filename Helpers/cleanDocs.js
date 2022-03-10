@@ -1,6 +1,6 @@
 const fs = require('fs')
 const colors = require('colors')
-const { refactorNameFile } = require('./Helpers/refactorNameFile')
+const { refactorNameFile } = require('./refactorNameFile')
 
 const cleanDocs = () => {
 	console.log(colors.cyan.italic('\n Moviendo archivos..'))
