@@ -5,10 +5,10 @@ const { refactorNameFile } = require('./refactorNameFile')
 const cleanDocs = () => {
 	console.log(colors.cyan.italic('\n Moviendo archivos..'))
 
-	const oldPath = './../wasapcorpo'
-	const newPath = './../avdoc'
+	const oldPath = './../../wasapcorpo'
+	const newPath = './../../avdoc'
 
-	const files = fs.readdirSync('./../wasapcorpo').filter((f) => f.includes('-D-'))
+	const files = fs.readdirSync('./../../wasapcorpo').filter((f) => f.includes('-D-'))
 
 	// console.log(files)
 	files.forEach((file) => {
@@ -17,4 +17,5 @@ const cleanDocs = () => {
 	})
 }
 
+cleanDocs()
 module.exports = { cleanDocs }

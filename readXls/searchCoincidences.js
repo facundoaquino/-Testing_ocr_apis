@@ -2,12 +2,14 @@ require('dotenv').config()
 
 const fs = require('fs')
 const { trimExtension } = require('../Helpers/refactorNameFile')
+const { readBook } = require('./readFileXlsx')
 
 const searchCoincidences = (dataExel = []) => {
 	console.log(dataExel)
-	const filesWhihoutDoc = fs.readdirSync(process.env.PATH_TO_DOWNLOAD)
+	const filesWhihoutDoc = fs.readdirSync('../../wasapcorpo')
 
 	const data = [...filesWhihoutDoc]
+	console.log(data)
 	let counter = 0
 
 	for (let i = 0; i < dataExel.length; i++) {
@@ -30,8 +32,8 @@ const searchCoincidences = (dataExel = []) => {
 					})
 				}
 				fs.rename(
-					process.env.PATH_TO_DOWNLOAD + '/' + file,
-					process.env.PATH_TO_DOWNLOAD + '/' + str + '.jpeg',
+					'../../wasapcorpo' + '/' + file,
+					'../../wasapcorpo' + '/' + str + '.jpeg',
 					() => {}
 				)
 				counter++
@@ -46,6 +48,9 @@ const searchCoincidences = (dataExel = []) => {
 	// fs.writeFileSync('./test.json', JSON.stringify(data, null, 5))
 	return data
 }
+
+const dataE = readBook('./../bases/gestionesFan_9_2.xlsx')
+searchCoincidences(dataE)
 
 module.exports = {
 	searchCoincidences,
