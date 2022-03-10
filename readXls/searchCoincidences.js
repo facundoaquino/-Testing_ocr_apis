@@ -5,8 +5,8 @@ const { trimExtension } = require('../Helpers/refactorNameFile')
 const { readBook } = require('./readFileXlsx')
 
 const searchCoincidences = (dataExel = []) => {
-	console.log(dataExel)
-	const filesWhihoutDoc = fs.readdirSync('../../wasapcorpo')
+	//	console.log(dataExel)
+	const filesWhihoutDoc = fs.readdirSync(process.env.PATH_TO_DOWNLOAD)
 
 	const data = [...filesWhihoutDoc]
 	console.log(data)
@@ -32,8 +32,8 @@ const searchCoincidences = (dataExel = []) => {
 					})
 				}
 				fs.rename(
-					'../../wasapcorpo' + '/' + file,
-					'../../wasapcorpo' + '/' + str + '.jpeg',
+					process.env.PATH_TO_DOWNLOAD + '/' + file,
+					'//apac-fs1/grupos/PRIVADO/AV3/basesFacu' + '/' + str + '.jpeg',
 					() => {}
 				)
 				counter++
@@ -49,7 +49,8 @@ const searchCoincidences = (dataExel = []) => {
 	return data
 }
 
-const dataE = readBook('./../bases/gestionesFan_9_2.xlsx')
+const dataE = readBook(process.env.PATH_EXEL_FILE)
+//console.log(dataE)
 searchCoincidences(dataE)
 
 module.exports = {

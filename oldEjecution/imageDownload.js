@@ -60,7 +60,7 @@ const getData = async () => {
 			// imgs: [...photosRefactorized.whitDoc, ...photosRefactorized.withouDoc],
 			// imgs: [...photosDocFilter.whitDoc, ...photosDocFilter.withouDoc],
 			imgs: [...photosRename],
-			dest: './../wasapcorpo', //destination folder
+			dest: process.env.PATH_TO_DOWNLOAD, //destination folder
 		})
 	} catch (error) {
 		console.log(error)
