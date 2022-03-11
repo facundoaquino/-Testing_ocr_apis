@@ -7,7 +7,6 @@ const colors = require('colors')
 const { refactorNameFile } = require('./Helpers/refactorNameFile')
 
 const cleanDocs = () => {
-	console.log(colors.cyan.italic('\n Moviendo archivos..'))
 	//vamos a usar esta regex para evaluar si el nombre del archivo tiene dos xx o mas para descartarlo
 
 	const oldPath = process.env.PATH_TO_DOWNLOAD
@@ -16,6 +15,8 @@ const cleanDocs = () => {
 	const files = fs
 		.readdirSync(process.env.PATH_TO_DOWNLOAD)
 		.filter((file) => file.includes('-D-'))
+
+	console.log(colors.cyan.italic(`\n Moviendo y borrando ${files.length}  archivos...`))
 
 	// console.log(files)
 	files.forEach((file) => {
@@ -34,5 +35,14 @@ const cleanDocs = () => {
 	})
 }
 
+const [secondsStart] = process.hrtime()
+
 cleanDocs()
+
+const [secondsEnd] = process.hrtime()
+
+console.log(colors.cyan.italic(`\n VALiDACION TERMINADA...`))
+
+console.log(colors.cyan.italic(`\n TIEMPO DE EJECUCION : ${secondsEnd - secondsStart} segundos...`))
+
 module.exports = { cleanDocs }
