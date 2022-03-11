@@ -33,7 +33,7 @@ const searchCoincidences = (dataExel = []) => {
 				}
 				fs.rename(
 					process.env.PATH_TO_DOWNLOAD + '/' + file,
-					'//apac-fs1/grupos/PRIVADO/AV3/basesFacu' + '/' + str + '.jpeg',
+					process.env.PATH_TO_DOWNLOAD + '/' + str + '.jpeg',
 					() => {}
 				)
 				counter++
