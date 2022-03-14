@@ -1,6 +1,32 @@
 const { readDir } = require('./Helpers/readDir')
 
 require('dotenv').config()
+const compress_images = require('compress-images')
+const INPUT_path_to_your_images = './downloads/*.{jpg,jpeg}'
+const OUTPUT_path = 'build/img/'
 
-const files = readDir(process.env.PATH_DOCS)
-console.log(files)
+// compress_images(
+// 	INPUT_path_to_your_images,
+// 	OUTPUT_path,
+// 	{ compress_force: false, statistic: true, autoupdate: true },
+// 	false,
+// 	{ jpg: { engine: 'mozjpeg', command: ['-quality', '10'] } },
+// 	{ png: { engine: 'pngquant', command: ['--quality=20-50', '-o'] } },
+// 	{ svg: { engine: 'svgo', command: '--multipass' } },
+// 	{ gif: { engine: 'gifsicle', command: ['--colors', '64', '--use-col=web'] } },
+// 	function (error, completed, statistic) {
+// 		console.log('-------------')
+// 		console.log(error)
+// 		console.log(completed)
+// 		console.log(statistic)
+// 		console.log('-------------')
+// 	}
+// )
+
+const fs = require('fs')
+const getFileUpdatedDate = (path) => {
+	const stats = fs.statSync(path)
+	console.log(stats)
+	return stats.mtime
+}
+getFileUpdatedDate('./downloads/image.jpeg')
