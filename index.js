@@ -4,9 +4,10 @@ require('dotenv').config()
 /*---------------------- PROBANDO LIBRERIA PARA COMPRIMIR IMAGENES ---------------------*/
 
 const compress_images = require('compress-images')
+const { compress } = require('compress-images/promise')
 const { readXlsx } = require('./readXls/readXlsx')
-const INPUT_path_to_your_images = './downloads/*.{jpg,jpeg}'
-const OUTPUT_path = 'build/img/'
+const INPUT_path_to_your_images = process.env.PATH_DOCS + '/' + '14674619' + '.jpg'
+const OUTPUT_path = './build/img/'
 
 // compress_images(
 // 	INPUT_path_to_your_images,
@@ -36,17 +37,34 @@ const OUTPUT_path = 'build/img/'
 // }
 // getFileUpdatedDate('./downloads/image.jpeg')
 
-/*---------------------- FUNCION PARA PROBAR LECTURA DE EXEL CON LIBRERIA XLSX ---------------------*/
+/*---------------------- FUNCION PARA PROBAR LECTURA DE EXEL CON LIBRERIA XLSX y comprimir imgs---------------------*/
+const init = async () => {
+	const data = readXlsx(process.env.PATH_DOCS_CLOSES)
+	//const files = fs.readdirSync(process.env.PATH_DOCS)
 
-const data = readXlsx(process.env.PATH_DOCS_CLOSES)
-const files = fs.readdirSync(process.env.PATH_DOCS)
-let counter = 0
-for (let i = 0; i < data.length; i++) {
-	const { dni } = data[i]
-	let times = 0
-	const exists = fs.existsSync(process.env.PATH_DOCS + '/' + dni + '.jpg')
-	const existsOr = fs.existsSync(process.env.PATH_DOCS + '/' + dni + 'x.jpg')
-	if (exists || existsOr) {
-		console.log(dni)
+	const compressImg = async (path) => {
+		await compress({
+			source: path,
+			destination: OUTPUT_path,
+			enginesSetup: {
+				jpg: { engine: 'mozjpeg', command: ['-quality', '50'] },
+			},
+		})
+	}
+
+	for (let i = 0; i < data.length; i++) {
+		const { dni } = data[i]
+		const pathOne = process.env.PATH_DOCS + '/' + dni + '.jpg'
+		const pathTwo = process.env.PATH_DOCS + '/' + dni + 'x.jpg'
+		const existsOne = fs.existsSync(pathOne)
+		const existsTwo = fs.existsSync(pathTwo)
+		if (existsOne) {
+			await compressImg(pathOne)
+		}
+		if (existsTwo) {
+			await compressImg(pathTwo)
+		}
 	}
 }
+
+init()

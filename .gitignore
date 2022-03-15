@@ -7,3 +7,5 @@
 /downloads/*
 /jsonsTest/*
 .bat
+/build/*
+/log
