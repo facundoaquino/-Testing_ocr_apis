@@ -38,33 +38,58 @@ const OUTPUT_path = './build/img/'
 // getFileUpdatedDate('./downloads/image.jpeg')
 
 /*---------------------- FUNCION PARA PROBAR LECTURA DE EXEL CON LIBRERIA XLSX y comprimir imgs---------------------*/
-const init = async () => {
-	const data = readXlsx(process.env.PATH_DOCS_CLOSES)
-	//const files = fs.readdirSync(process.env.PATH_DOCS)
+// const init = async () => {
+// 	const data = readXlsx(process.env.PATH_DOCS_CLOSES)
+// 	//const files = fs.readdirSync(process.env.PATH_DOCS)
 
-	const compressImg = async (path) => {
-		await compress({
-			source: path,
-			destination: OUTPUT_path,
-			enginesSetup: {
-				jpg: { engine: 'mozjpeg', command: ['-quality', '50'] },
-			},
-		})
+// 	const compressImg = async (path) => {
+// 		await compress({
+// 			source: path,
+// 			destination: OUTPUT_path,
+// 			enginesSetup: {
+// 				jpg: { engine: 'mozjpeg', command: ['-quality', '50'] },
+// 			},
+// 		})
+// 	}
+
+// 	for (let i = 0; i < data.length; i++) {
+// 		const { dni } = data[i]
+// 		const pathOne = process.env.PATH_DOCS + '/' + dni + '.jpg'
+// 		const pathTwo = process.env.PATH_DOCS + '/' + dni + 'x.jpg'
+// 		const existsOne = fs.existsSync(pathOne)
+// 		const existsTwo = fs.existsSync(pathTwo)
+// 		if (existsOne) {
+// 			await compressImg(pathOne)
+// 		}
+// 		if (existsTwo) {
+// 			await compressImg(pathTwo)
+// 		}
+// 	}
+// }
+
+// init()
+/*---------------------- COMPARAR TODOS LOS FILES DE AV DOC CON LA REPORTERIA A 90 DIAS O 120 DIAS---------------------*/
+
+const data = readXlsx('./bases/aprobadas120.xlsx').map(
+	(e) => e['Nombre del contacto: DocumentNumber']
+)
+
+const filesOnDisk = JSON.parse(fs.readFileSync('./bases/docs.json'))
+
+console.log(filesOnDisk)
+
+let coincidences = 0
+
+for (let i = 0; i < data.length; i++) {
+	const dni = data[i]
+	const str = dni + '.jpg'
+	const str2 = dni + 'x.jpg'
+	if (filesOnDisk[str] != -1) {
+		coincidences++
 	}
-
-	for (let i = 0; i < data.length; i++) {
-		const { dni } = data[i]
-		const pathOne = process.env.PATH_DOCS + '/' + dni + '.jpg'
-		const pathTwo = process.env.PATH_DOCS + '/' + dni + 'x.jpg'
-		const existsOne = fs.existsSync(pathOne)
-		const existsTwo = fs.existsSync(pathTwo)
-		if (existsOne) {
-			await compressImg(pathOne)
-		}
-		if (existsTwo) {
-			await compressImg(pathTwo)
-		}
+	if (filesOnDisk[str2] != -1) {
+		coincidences++
 	}
 }
 
-init()
+console.log({ coincidences })

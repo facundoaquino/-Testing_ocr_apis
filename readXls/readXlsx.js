@@ -1,6 +1,6 @@
 const XLSX = require('xlsx')
 
-const readXlsx = (path, column) => {
+const readXlsx = (path, column = null) => {
 	const workbook = XLSX.readFile(path)
 	const workbookSheets = workbook.SheetNames
 	console.log(workbookSheets)

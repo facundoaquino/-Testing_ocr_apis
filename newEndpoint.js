@@ -56,29 +56,23 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 	})
 	// console.log(data.data)
 
-	if (data.data.length > 1000) {
-		//PARA DESCARGAR DIA COMPLETO DESCARGA DE A UNA (MAS LENTO)
-		// console.log(data.data)
-		await singleDownload4(data.data)
-	} else {
-		let photosRename = []
+	let photosRename = []
 
-		photosRename = data.data.map((photo) => ({
-			uri: photo.url,
-			filename: photo.name
-				.split('.')
-				.slice(0, photo.name.split('.').length - 1)
-				.join(''),
-		}))
-		// DESCARGA DE IMAGENES CON LIBRERIA node-image-downloader
+	photosRename = data.data.map((photo) => ({
+		uri: photo.url,
+		filename: photo.name
+			.split('.')
+			.slice(0, photo.name.split('.').length - 1)
+			.join(''),
+	}))
+	// DESCARGA DE IMAGENES CON LIBRERIA node-image-downloader
 
-		await ImageDownloader({
-			// imgs: [...photosRefactorized.whitDoc, ...photosRefactorized.withouDoc],
-			// imgs: [...photosDocFilter.whitDoc, ...photosDocFilter.withouDoc],
-			imgs: [...photosRename],
-			dest: './images', //destination folder
-		})
-	}
+	await ImageDownloader({
+		// imgs: [...photosRefactorized.whitDoc, ...photosRefactorized.withouDoc],
+		// imgs: [...photosDocFilter.whitDoc, ...photosDocFilter.withouDoc],
+		imgs: [...photosRename],
+		dest: './images', //destination folder
+	})
 
 	console.log(colors.magenta('Archivos descargados : ', data.data.length))
 	return data.data
