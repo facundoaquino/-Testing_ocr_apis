@@ -7,10 +7,4 @@ const deleteIfExists = (path) => {
 	}
 }
 
-deleteIfExists(
-	process.env.PATH_DOCS +
-		'/' +
-		'5493364573827xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.jpeg'
-)
-
 module.exports = { deleteIfExists }

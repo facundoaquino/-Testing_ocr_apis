@@ -7,6 +7,7 @@ const compress_images = require('compress-images')
 const { compress } = require('compress-images/promise')
 const { readXlsx } = require('./readXls/readXlsx')
 const { trimExtension } = require('./Helpers/refactorNameFile')
+const getLastModify = require('./Helpers/getLastModify')
 const INPUT_path_to_your_images = process.env.PATH_DOCS + '/' + '14674619' + '.jpg'
 const OUTPUT_path = './build/img/'
 
@@ -27,16 +28,6 @@ const OUTPUT_path = './build/img/'
 // 		console.log('-------------')
 // 	}
 // )
-
-/*---------------------- RECUPERANDO LOS DATOS DE UN ARCHIVO ---------------------*/
-
-// const fs = require('fs')
-// const getFileUpdatedDate = (path) => {
-// 	const stats = fs.statSync(path)
-// 	console.log(stats)
-// 	return stats.mtime
-// }
-// getFileUpdatedDate('./downloads/image.jpeg')
 
 /*---------------------- FUNCION PARA PROBAR LECTURA DE EXEL CON LIBRERIA XLSX y comprimir imgs---------------------*/
 // const init = async () => {
@@ -95,15 +86,15 @@ const OUTPUT_path = './build/img/'
 
 /*---------------------- agregar jpg ---------------------*/
 
-const filesjpeg = fs.readdirSync(process.env.PATH_FILESWHITDOC)
-for (let i = 0; i < filesjpeg.length; i++) {
-	const file = filesjpeg[i]
-	const newPath = trimExtension(file) + '.jpg'
+// const filesjpeg = fs.readdirSync(process.env.PATH_FILESWHITDOC)
+// for (let i = 0; i < filesjpeg.length; i++) {
+// 	const file = filesjpeg[i]
+// 	const newPath = trimExtension(file) + '.jpg'
 
-	fs.renameSync(
-		process.env.PATH_FILESWHITDOC + '/' + file,
-		'//apac-fs1/grupos/PRIVADO/AV5/DNI para Renombrar' + '/' + newPath
-	)
-}
+// 	fs.renameSync(
+// 		process.env.PATH_FILESWHITDOC + '/' + file,
+// 		'//apac-fs1/grupos/PRIVADO/AV5/DNI para Renombrar' + '/' + newPath
+// 	)
+// }
 //fs.renameSync(process.env.PATH_FILESWHITDOC + '/' + file, process.env.PATH_FILESWHITDOC + '/' + newPath)
 //'//apac-fs1/grupos/PRIVADO/AV5/DNI para Renombrar' + '/' + newPath
