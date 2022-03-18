@@ -33,7 +33,7 @@ const searchCoincidences = (dataExel = []) => {
 				}
 				fs.rename(
 					process.env.PATH_TO_DOWNLOAD + '/' + file,
-					process.env.PATH_TO_DOWNLOAD + '/' + str + '.jpeg',
+					process.env.PATH_TO_DOWNLOAD + '/' + str + '.jpg',
 					() => {}
 				)
 				counter++

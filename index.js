@@ -6,6 +6,7 @@ require('dotenv').config()
 const compress_images = require('compress-images')
 const { compress } = require('compress-images/promise')
 const { readXlsx } = require('./readXls/readXlsx')
+const { trimExtension } = require('./Helpers/refactorNameFile')
 const INPUT_path_to_your_images = process.env.PATH_DOCS + '/' + '14674619' + '.jpg'
 const OUTPUT_path = './build/img/'
 
@@ -70,26 +71,39 @@ const OUTPUT_path = './build/img/'
 // init()
 /*---------------------- COMPARAR TODOS LOS FILES DE AV DOC CON LA REPORTERIA A 90 DIAS O 120 DIAS---------------------*/
 
-const data = readXlsx('./bases/aprobadas120.xlsx').map(
-	(e) => e['Nombre del contacto: DocumentNumber']
-)
+// const data = readXlsx('./bases/aprobadas120.xlsx').map((e) => e['Nombre del contacto: DocumentNumber'])
+//
+// const filesOnDisk = JSON.parse(fs.readFileSync('./bases/docs.json'))
+//
+// console.log(filesOnDisk)
+//
+// let coincidences = 0
+//
+// for (let i = 0; i < data.length; i++) {
+// 	const dni = data[i]
+// 	const str = dni + '.jpg'
+// 	const str2 = dni + 'x.jpg'
+// 	if (filesOnDisk[str] != -1) {
+// 		coincidences++
+// 	}
+// 	if (filesOnDisk[str2] != -1) {
+// 		coincidences++
+// 	}
+// }
+//
+// console.log({ coincidences })
 
-const filesOnDisk = JSON.parse(fs.readFileSync('./bases/docs.json'))
+/*---------------------- agregar jpg ---------------------*/
 
-console.log(filesOnDisk)
+const filesjpeg = fs.readdirSync(process.env.PATH_FILESWHITDOC)
+for (let i = 0; i < filesjpeg.length; i++) {
+	const file = filesjpeg[i]
+	const newPath = trimExtension(file) + '.jpg'
 
-let coincidences = 0
-
-for (let i = 0; i < data.length; i++) {
-	const dni = data[i]
-	const str = dni + '.jpg'
-	const str2 = dni + 'x.jpg'
-	if (filesOnDisk[str] != -1) {
-		coincidences++
-	}
-	if (filesOnDisk[str2] != -1) {
-		coincidences++
-	}
+	fs.renameSync(
+		process.env.PATH_FILESWHITDOC + '/' + file,
+		'//apac-fs1/grupos/PRIVADO/AV5/DNI para Renombrar' + '/' + newPath
+	)
 }
-
-console.log({ coincidences })
+//fs.renameSync(process.env.PATH_FILESWHITDOC + '/' + file, process.env.PATH_FILESWHITDOC + '/' + newPath)
+//'//apac-fs1/grupos/PRIVADO/AV5/DNI para Renombrar' + '/' + newPath

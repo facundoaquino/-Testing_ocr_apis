@@ -4,7 +4,7 @@ require('dotenv').config()
 const fs = require('fs')
 
 const colors = require('colors')
-const { refactorNameFile } = require('./Helpers/refactorNameFile')
+const { refactorNameFile, trimExtension } = require('./Helpers/refactorNameFile')
 
 const cleanDocs = () => {
 	//vamos a usar esta regex para evaluar si el nombre del archivo tiene dos xx o mas para descartarlo
@@ -12,9 +12,7 @@ const cleanDocs = () => {
 	const oldPath = process.env.PATH_TO_DOWNLOAD
 	const newPath = process.env.PATH_FILESWHITDOC
 
-	const files = fs
-		.readdirSync(process.env.PATH_TO_DOWNLOAD)
-		.filter((file) => file.includes('-D-'))
+	const files = fs.readdirSync(process.env.PATH_TO_DOWNLOAD).filter((file) => file.includes('-D-'))
 
 	console.log(colors.cyan.italic(`\n Moviendo y borrando ${files.length}  archivos...`))
 
@@ -30,7 +28,7 @@ const cleanDocs = () => {
 				}
 			})
 		} else {
-			fs.renameSync(oldPath + `${'/' + file}`, newPath + `${'/' + nameFile}`)
+			fs.renameSync(oldPath + `${'/' + file}`, newPath + `/${trimExtension(nameFile)}.jpg`)
 		}
 	})
 }

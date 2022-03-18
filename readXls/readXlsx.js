@@ -9,7 +9,7 @@ const readXlsx = (path, column = null) => {
 	console.log(sheet)
 	// const dataExel = XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { header: 'LineNumber' })
 	const dataExel = XLSX.utils.sheet_to_json(workbook.Sheets[sheet])
-	console.log(dataExel)
+	//	console.log(dataExel)
 	return dataExel
 }
 
