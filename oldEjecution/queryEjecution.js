@@ -6,9 +6,15 @@ const axios = require('axios').default
 const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 	console.log(colors.rainbow('DESCARGANDO ARCHIVOS'))
 	if (timeTo !== '') {
-		timeTo = timeTo + ':00'
-		timeFrom = timeFrom + ':00'
+		if (timeFrom == '23') {
+			timeFrom = '23:00'
+			timeTo = '23:59'
+		} else {
+			timeTo = timeTo + ':00'
+			timeFrom = timeFrom + ':00'
+		}
 	}
+
 	const url = `${process.env.URL_API}/&offset=0&name=&phone=&ticket=&timeFrom=${timeFrom}&fromDate=${day}&toDate=${day}&timeTo=${timeTo}`
 	console.log(url)
 

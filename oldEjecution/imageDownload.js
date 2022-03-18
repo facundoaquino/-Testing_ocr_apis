@@ -20,6 +20,9 @@ if (argv.h) {
 	timeTo = argv.h
 	timeFrom = formatTime(Number(argv.h) - 1)
 }
+if (timeTo == '00') {
+	timeFrom = '23'
+}
 
 const date = { day: argv.f, timeFrom, timeTo }
 console.log(date)
