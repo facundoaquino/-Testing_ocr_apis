@@ -123,7 +123,7 @@ const downloadWhitHttp = (url, filename, position) => {
 const singleDownload4 = async (dataArr) => {
 	for (let i = 0; i < dataArr.length; i++) {
 		const { url, name } = dataArr[i]
-		await downloadWhitHttp(url, `./downloads/${name}`, i + 1)
+		await downloadWhitHttp(url, `${process.env.PATH_TO_DOWNLOAD}/${name}`, i + 1)
 	}
 }
 

@@ -6,6 +6,7 @@ const imageDownloader = require('node-image-downloader')
 
 const colors = require('colors')
 const { queryEjecution } = require('./queryEjecution')
+const { singleDownload4 } = require('../singleDownloadUrl')
 
 var argv = require('yargs/yargs')(process.argv.slice(2)).argv
 
@@ -44,18 +45,12 @@ const getData = async () => {
 	// console.log(photosRefactorized.withouDoc)
 	// console.log(photosRefactorized.whitDoc.length + photosRefactorized.withouDoc.length)
 	if (!argv.h) {
-		for (let index = 0; index < photosRename.length; index++) {
-			try {
-				await imageDownloader({
-					// imgs: [...photosRefactorized.whitDoc, ...photosRefactorized.withouDoc],
-					// imgs: [...photosDocFilter.whitDoc, ...photosDocFilter.withouDoc],
-					imgs: [photosRename[index]],
-					dest: process.env.PATH_TO_DOWNLOAD, //destination folder
-				})
-			} catch (error) {
-				console.log(error)
-			}
-		}
+		console.log(data)
+		let dataArr = []
+		data.forEach((d) => (dataArr = [...dataArr, ...d.files]))
+
+		console.log('largo array = ', dataArr.length)
+		await singleDownload4(dataArr)
 		return
 	}
 	try {
