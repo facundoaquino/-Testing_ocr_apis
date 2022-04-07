@@ -104,7 +104,7 @@ const singleDownload3 = async (dataArr) => {
 }
 
 /*---------------------- ********************************** ---------------------*/
-const downloadWhitHttp = (url, filename, position) => {
+const downloadWhitHttp = (url, filename) => {
 	return new Promise((resolve, reject) => {
 		https.get(url, function (res) {
 			const fileStream = fs.createWriteStream(filename)
@@ -112,7 +112,6 @@ const downloadWhitHttp = (url, filename, position) => {
 
 			fileStream.on('finish', function () {
 				fileStream.close()
-				console.log(`Imagen ${position} descargada...`)
 
 				resolve(filename)
 			})
@@ -123,7 +122,8 @@ const downloadWhitHttp = (url, filename, position) => {
 const singleDownload4 = async (dataArr) => {
 	for (let i = 0; i < dataArr.length; i++) {
 		const { url, name } = dataArr[i]
-		await downloadWhitHttp(url, `${process.env.PATH_TO_DOWNLOAD}/${name}`, i + 1)
+		await downloadWhitHttp(url, `./imagesLocal/${name}`)
+		console.log(`Imagen ${i + 1} descargada...`)
 	}
 }
 
