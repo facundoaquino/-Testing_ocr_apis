@@ -101,30 +101,35 @@ const OUTPUT_path = './build/img/'
 
 /*---------------------- traer la info de lo ultimo modificado en los docs---------------------*/
 
-const actualFiles = JSON.parse(fs.readFileSync('./bases/docs.json'))
-const resume = {
-	2021: 0,
-	enero: 0,
-	febrero: 0,
-}
-let filesCounter = 0
-for (let i = 0; i < actualFiles.length; i++) {
-	const docNameFile = actualFiles[i]
-	const path = `${process.env.PATH_DOCS}/${docNameFile}`
-	if (fs.existsSync(path)) {
-		const date = getLastModify(path)
+//const actualFiles = JSON.parse(fs.readFileSync('./bases/docs.json'))
+//const resume = {
+//	2021: 0,
+//	enero: 0,
+//	febrero: 0,
+//}
+//let filesCounter = 0
+//for (let i = 0; i < actualFiles.length; i++) {
+//	const docNameFile = actualFiles[i]
+//	const path = `${process.env.PATH_DOCS}/${docNameFile}`
+//	if (fs.existsSync(path)) {
+//		const date = getLastModify(path)
+//
+//		const month = date.getMonth()
+//		const year = date.getFullYear()
+//		if (month == 0) {
+//			resume.enero = resume.enero + 1
+//		}
+//		if (year == 2021) {
+//			resume[2021] = resume[2021] + 1
+//		}
+//		if (month == 1) {
+//			resume.febrero = resume.febrero + 1
+//		}
+//		console.log(resume)
+//	}
+//}
+/*---------------------- analizar avdoc---------------------*/
 
-		const month = date.getMonth()
-		const year = date.getFullYear()
-		if (month == 0) {
-			resume.enero = resume.enero + 1
-		}
-		if (year == 2021) {
-			resume[2021] = resume[2021] + 1
-		}
-		if (month == 1) {
-			resume.febrero = resume.febrero + 1
-		}
-		console.log(resume)
-	}
-}
+const files = fs.readdirSync(process.env.PATH_DOCS)
+const filesLong = files.filter((file) => file.length > 12 && !file.includes('x'))
+console.log(filesLong)
