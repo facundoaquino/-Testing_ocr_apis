@@ -9,3 +9,5 @@
 .bat
 /build/*
 /log
+*.txt
+*.json
