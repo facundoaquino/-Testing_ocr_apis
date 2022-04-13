@@ -1,12 +1,7 @@
 const colors = require('colors')
 require('dotenv').config()
 const ImageDownloader = require('node-image-downloader/src/image-downloader')
-const {
-	singleDownload,
-	singleDownload2,
-	singleDownload3,
-	singleDownload4,
-} = require('./singleDownloadUrl')
+const { singleDownload, singleDownload2, singleDownload3, singleDownload4 } = require('./singleDownloadUrl')
 var argv = require('yargs/yargs')(process.argv.slice(2)).argv
 
 const axios = require('axios').default
@@ -43,9 +38,7 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 	}
 	console.log(
 		colors.bgCyan.black(
-			`Descargando del dia ${day} de ${timeFrom ? timeFrom : '00:00'} hs  a ${
-				timeTo ? timeTo : '23:59'
-			}hs`
+			`Descargando del dia ${day} de ${timeFrom ? timeFrom : '00:00'} hs  a ${timeTo ? timeTo : '23:59'}hs`
 		)
 	)
 	const data = await axios.post(url, body, {
@@ -54,7 +47,7 @@ const queryEjecution = async ({ day, timeFrom, timeTo }) => {
 			'Content-Type': 'application/json',
 		},
 	})
-	// console.log(data.data)
+	console.log(data.data.length)
 
 	let photosRename = []
 
